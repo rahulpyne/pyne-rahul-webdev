@@ -18,7 +18,7 @@
 <div class="container-fluid">
     <ul class="list-group">
         <li class="list-group-item" ng-repeat = "page in model.pages">
-            <a href="../../widget/widget-list.html">
+            <a href="#/user/{{model.params.uid}}/website/{{model.params.wid}}/page/{{page._id}}/widget">
                 {{page.name}}
             </a>
             <a href="#/user/{{model.params.uid}}/website/{{model.params.wid}}/page/{{page._id}}">

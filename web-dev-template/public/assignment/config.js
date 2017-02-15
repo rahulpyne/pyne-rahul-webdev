@@ -59,7 +59,12 @@
                 templateUrl:"page/templates/page-edit.view.client.html",
                 controller:"PageEditController",
                 controllerAs:"model"
-            });
+            })
+            .when("/user/:uid/website/:wid/page/:pid/widget",{
+            templateUrl:"widget/templates/widget-list.view.client.html",
+            controller:"WidgetListController",
+            controllerAs:"model"
+        });
         // this helps us in setting the base href or the default page.
         //$locationProvider.html5Mode(true); // html5Mode - standardized way to manipulate the browser history using a script.
     }

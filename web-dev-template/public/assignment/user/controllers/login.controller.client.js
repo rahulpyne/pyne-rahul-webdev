@@ -16,12 +16,16 @@
 
 
         function login(user){
-            var user = UserService.findUserByCredentials(user.username, user.password);
             if(user){
-                $location.url("/user/"+user._id); // replaces everything after hash with the given value in the url.
+                var user = UserService.findUserByCredentials(user.username, user.password);
+                if(user) {
+                    $location.url("/user/" + user._id); // replaces everything after hash with the given value in the url.
+                }else{
+                    vm.error = "The user does not exist"; // defining an instance variable vm.error, so that it gets mapped to model in view.
+                }
             }
             else{
-                vm.error = "The user does not exist"; // defining an instance variable vm.error, so that it gets mapped to model in view.
+               vm.error = "Encountered a problem, kindly enter the details and try again."
             }
         }
     }
