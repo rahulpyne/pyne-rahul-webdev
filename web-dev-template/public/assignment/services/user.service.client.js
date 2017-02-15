@@ -24,9 +24,19 @@
             "createUser":createUser,
             "findUserById": findUserById,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "findUserByUsername":findUserByUsername
         }
         return api; // whenever UserService is invoked, the map of apis is returned
+
+        function findUserByUsername(username){
+            for(var u in users){
+                if(users[u].username == username){
+                    return angular.copy(users[u]);
+                }
+                return null;
+            }
+        }
 
         function deleteUser(uid){
             for(var u in users){
@@ -35,26 +45,27 @@
                     break;
                 }
             }
-            console.log(users);
         }
 
 
         function findUserById(uid){
             for(var u in users){
                 if(users[u]._id == uid){
-                    return users[u];
+                    return angular.copy(users[u]);
                 }
             }
             return null;
         }
 
         function updateUser(uid, newUser){
-            var user = findUserById(uid);
-            if(user){
-                user.firstName = newUser.firstName;
-                user.lastName = newUser.lastName;
-                user.email = newUser.email;
-                return user;
+            for(var u in users) {
+                if (users[u]._id==uid) {
+                    console.log(users[u]);
+                    users[u].firstName = newUser.firstName;
+                    users[u].lastName = newUser.lastName;
+                    users[u].email = newUser.email;
+                    return angular.copy(users[u]);
+                }
             }
             return null;
         }
@@ -78,10 +89,9 @@
         }
 
         function findUserByCredentials(username, password){
-            console.log(users);
             for( var u in users){
                 if(users[u].username == username && users[u].password == password){
-                    return users[u];
+                    return angular.copy(users[u]);
                 }
             }
             return null;

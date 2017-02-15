@@ -29,6 +29,21 @@
                 templateUrl: "user/templates/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model"
+            })
+            .when("/user/:uid/website",{
+                templateUrl: "website/templates/website-list.view.client.html",
+                controller:"WebsiteListController",
+                controllerAs:"model"
+            })
+            .when("/user/:uid/website/new",{ // This has to be above "/user/:uid/website/:wid" otherwise new will be considered as :wid
+                templateUrl: "website/templates/website-new.view.client.html",
+                controller:"WebsiteNewController",
+                controllerAs:"model"
+            })
+            .when("/user/:uid/website/:wid",{
+                templateUrl: "website/templates/website-edit.view.client.html",
+                controller:"WebsiteEditController",
+                controllerAs:"model"
             });
         // this helps us in setting the base href or the default page.
         //$locationProvider.html5Mode(true); // html5Mode - standardized way to manipulate the browser history using a script.

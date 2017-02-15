@@ -12,9 +12,20 @@
         vm.addnew = addnew;
 
         function addnew(user) {
-            if (user && (user.password == user.vpassword)) {
-                nuser = UserService.createUser(user);
-                $location.url("/user/"+nuser._id);
+            if (user) {
+                var existuser = UserService.findUserByUsername(user.username);
+                if(!existuser) {
+                    if (user.password == user.vpassword) {
+                        nuser = UserService.createUser(user);
+                        $location.url("/user/" + nuser._id);
+                    }
+                    else {
+                        vm.error = "Passwords mismatch. Kindly re-enter the passwords."
+                    }
+                }
+                else{
+                    vm.error = "Username exists, kindly enter a new user name."
+                }
             }
             else{
                 vm.error = "Encountered an error, please re-enter the details."

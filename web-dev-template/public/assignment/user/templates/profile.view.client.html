@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-text pull-right">
-            <span class="glyphicon glyphicon-ok" ng-click = "model.update(model.user)"></span>
+            <span class="glyphicon glyphicon-ok" ng-click = "model.update()"></span>
         </div>
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Profile</a>
@@ -36,7 +36,7 @@
     </form>
 
     <a class="btn btn-primary btn-block"
-       href="../../website/website-list.html">Websites</a>
+       href="#/user/{{model.user._id}}/website">Websites</a>
     <a class="btn btn-danger  btn-block"
        href="#/login">Logout</a>
 </div>

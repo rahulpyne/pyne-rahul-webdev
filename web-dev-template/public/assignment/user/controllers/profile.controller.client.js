@@ -15,8 +15,8 @@
         (function() {
             vm.user = UserService.findUserById(uid);
         })();
-        function update(newuser){
-            var user = UserService.updateUser(uid,newuser);
+        function update(){
+            var user = UserService.updateUser(uid,vm.user);
             if(user){
                 vm.message = "User details successfully updated";
             }
