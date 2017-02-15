@@ -44,6 +44,21 @@
                 templateUrl: "website/templates/website-edit.view.client.html",
                 controller:"WebsiteEditController",
                 controllerAs:"model"
+            })
+            .when("/user/:uid/website/:wid/page",{
+                templateUrl:"page/templates/page-list.view.client.html",
+                controller:"PageListController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/new",{
+                templateUrl:"page/templates/page-new.view.client.html",
+                controller:"PageNewController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/website/:wid/page/:pid",{
+                templateUrl:"page/templates/page-edit.view.client.html",
+                controller:"PageEditController",
+                controllerAs:"model"
             });
         // this helps us in setting the base href or the default page.
         //$locationProvider.html5Mode(true); // html5Mode - standardized way to manipulate the browser history using a script.

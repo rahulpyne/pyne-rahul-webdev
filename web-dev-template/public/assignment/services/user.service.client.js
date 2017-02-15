@@ -60,7 +60,6 @@
         function updateUser(uid, newUser){
             for(var u in users) {
                 if (users[u]._id==uid) {
-                    console.log(users[u]);
                     users[u].firstName = newUser.firstName;
                     users[u].lastName = newUser.lastName;
                     users[u].email = newUser.email;
