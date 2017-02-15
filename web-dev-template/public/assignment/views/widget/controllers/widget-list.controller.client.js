@@ -15,9 +15,9 @@
 
         //event handlers
         vm.doYouTrustUrl = doYouTrustUrl;
+        vm.trustAsHtml = trustAsHtml;
         (function(){
             vm.widgets = WidgetService.findWidgetsByPageId(vm.params.pid);
-            console.log(vm.widgets);
         })();
 
         function doYouTrustUrl(url) {
@@ -25,7 +25,10 @@
             var urlParts = url.split('/');
             var id = urlParts[urlParts.length - 1];
             baseUrl += id;
-            return $sce.trustAsResourceUrl(baseUrl);
+            return $sce.trustAsResourceUrl(baseUrl); // ----> --->  $sce.trustAs($sce.RESOURCEURL,text)
+        }
+        function trustAsHtml(text){
+            return $sce.trustAsHtml(text); // --->  $sce.trustAs($sce.HTML,text)
         }
     }
 })();

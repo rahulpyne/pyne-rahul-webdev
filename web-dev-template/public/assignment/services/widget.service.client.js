@@ -8,6 +8,7 @@
 
     function widgetService(){
         var widgets = [];
+        var availableTypes = [];
 
         (function(){
             widgets =[
@@ -21,6 +22,7 @@
                     "url": "https://youtu.be/AM2Ivdi9c4E" },
                 { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
             ];
+            availableTypes = ["HEADING","HTML","IMAGE","YOUTUBE"];
         })();
 
         var api = {
@@ -28,19 +30,22 @@
             "findWidgetsByPageId":findWidgetsByPageId,
             "findWidgetById":findWidgetById,
             "updateWidget":updateWidget,
-            "deleteWidget":deleteWidget
+            "deleteWidget":deleteWidget,
+            "findAllWidgets":findAllWidgets,
+            "findAllAvailableTypes":findAllAvailableTypes
         };
         return api;
 
+        function findAllAvailableTypes(){
+            return angular.copy(availableTypes)
+        }
+
+        function findAllWidgets(){
+            return angular.copy(widgets);
+        }
         function createWidget(pageId, widget){
             var newWidget = angular.copy(widget);
             newWidget.pageId = pageId;
-            if(widgets){
-                newWidget._id = pages[page.length - 1]._id+1;
-            }
-            else{
-                newWidget._id = 1;
-            }
             widgets.push(newWidget);
         }
 

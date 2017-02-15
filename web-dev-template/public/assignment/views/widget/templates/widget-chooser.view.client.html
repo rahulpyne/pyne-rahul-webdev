@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <a href="#/user/{{model.params.uid}}/website/{{model.params.wid}}/page/{{model.params.pid}}/widget">
+            <span class="glyphicon glyphicon-chevron-left"></span></a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">Choose Widget</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <ul class="list-group">
+            <li class="list-group-item" ng-repeat ="type in model.availableTypes">
+                <a ng-click = "model.createWidget(type)">
+                    {{type}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-text pull-right">
+            <a href="#/user/{{model.params.uid}}">
+                <span class="glyphicon glyphicon-user"></span></a>
+        </div>
+    </div>
+</nav>

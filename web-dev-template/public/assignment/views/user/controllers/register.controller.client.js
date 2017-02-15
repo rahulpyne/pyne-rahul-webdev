@@ -9,7 +9,11 @@
     function registerController($location,UserService){
         var vm = this;
 
+        // event handlers
         vm.addnew = addnew;
+
+        (function(){
+        })(); // act as the init function
 
         function addnew(user) {
             if (user) {

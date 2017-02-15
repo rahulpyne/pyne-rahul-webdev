@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="../widget-chooser.html">
+            <a href="#/user/{{model.params.uid}}/website/{{model.params.wid}}/page/{{model.params.pid}}/widget/new">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
         </div>
@@ -20,27 +20,22 @@
     <div ng-repeat = "widget in model.widgets">
         <div ng-switch = "widget.widgetType">
             <div class="rp-toolbar">
-                <a href = "../widget-heading.html">
+                <a href = "#/user/{{model.params.uid}}/website/{{model.params.wid}}/page/{{model.params.pid}}/widget/{{widget._id}}">
                     <span class="glyphicon glyphicon-cog"></span>
                 </a>
                 <span class="glyphicon glyphicon-align-justify"></span>
             </div>
             <div ng-swtich-when = "HEADING">
-                <h1 ng-if = "widget.size == 1">{{widget.text}}</h1>
-                <h2 ng-if = "widget.size == 2">{{widget.text}}</h2>
-                <h3 ng-if = "widget.size == 3">{{widget.text}}</h3>
-                <h4 ng-if = "widget.size == 4">{{widget.text}}</h4>
-                <h5 ng-if = "widget.size == 5">{{widget.text}}</h5>
-                <h6 ng-if = "widget.size == 6">{{widget.text}}</h6>
+                <div ng-include = "'views/widget/templates/widget-heading.view.client.html'"></div>
             </div>
             <div ng-switch-when = "HTML">
-                <div ng-include = "{{widget.text}}"></div>
+                <div ng-include = "'views/widget/templates/widget-html.view.client.html'"></div>
             </div>
             <div ng-switch-when = "IMAGE">
-                <img ng-src = "{{widget.url}}" width = "{{widget.width}}"/>
+                <div ng-include = "'views/widget/templates/widget-image.view.client.html'"></div>
             </div>
             <div ng-switch-when="YOUTUBE">
-                <iframe ng-src="{{model.doYouTrustUrl(widget.url)}}" width = "{{widget.width}}" frameborder="0" allowfullscreen></iframe>
+                <div ng-include = "'views/widget/templates/widget-youtube.view.client.html'"></div>
             </div>
         </div>
     </div>
