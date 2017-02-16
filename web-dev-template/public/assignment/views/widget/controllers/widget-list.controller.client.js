@@ -18,7 +18,6 @@
         vm.trustAsHtml = trustAsHtml;
         function init(){
             vm.widgets = WidgetService.findWidgetsByPageId(vm.params.pid);
-            console.log(vm.widgets);
         }init();
 
         function doYouTrustUrl(url) {

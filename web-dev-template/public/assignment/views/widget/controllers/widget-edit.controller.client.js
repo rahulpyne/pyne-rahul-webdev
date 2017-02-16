@@ -20,7 +20,6 @@
 
         function init(){
             vm.widget = WidgetService.findWidgetById(vm.params.widg);
-            console.log(vm.widget)
         }init();
 
         function updateWidget(){
