@@ -69,10 +69,9 @@
         }
 
         function updateWidget(widgetId, widget) {
-            var dest = {};
             for (var w in widgets) {
                 if (widgets[w]._id == widgetId) {
-                    widgets[w] = angular.merge(dest,widgets[w],widget); // deep copies two objects and places it in dest
+                    widgets[w] = widget;
                     return widgets[w];
                 }
             }

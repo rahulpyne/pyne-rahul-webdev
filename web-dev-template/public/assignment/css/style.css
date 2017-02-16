@@ -40,3 +40,7 @@ body {
     margin-bottom: 50px;
     border: 1px solid darkgrey;
 }
+
+a.btn.btn-primary.upload{
+    margin-bottom: 10px;
+}

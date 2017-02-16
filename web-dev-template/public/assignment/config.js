@@ -74,6 +74,9 @@
                 templateUrl:"views/widget/templates/widget-edit.view.client.html",
                 controller:"WidgetEditController",
                 controllerAs:"model"
+            })
+            .otherwise({
+                redirectTo: '/'
             });
         // this helps us in setting the base href or the default page.
         //$locationProvider.html5Mode(true); // html5Mode - standardized way to manipulate the browser history using a script.
