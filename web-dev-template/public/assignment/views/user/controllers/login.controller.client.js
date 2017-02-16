@@ -12,7 +12,7 @@
 
         function init(){
         }
-        init(); // Acts as a constructor and initializes the initial instance variables as soon as the controller is loaded.
+        init();
 
 
         function login(user){

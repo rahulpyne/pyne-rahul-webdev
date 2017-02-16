@@ -9,14 +9,14 @@
     function userService(){
         var users = [];
 
-        (function () { // whenever UserService is called, the list of users is fetched.
+        function init() { // whenever UserService is called, the list of users is fetched.
             users = [
                 {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
                 {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
                 {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
                 {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
             ];
-        })(); // acting as a constructor and initializing the required instance variables.
+        } init(); // acting as a constructor and initializing the required instance variables.
         // since the instance variable is defined outside, immediate invocation of function does not reduce its scope within iffy.
 
         var api = {

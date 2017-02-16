@@ -12,9 +12,9 @@
         var uid = $routeParams.uid;
         //event handlers
         vm.update = update;
-        (function() {
+        function init() {
             vm.user = UserService.findUserById(uid);
-        })();
+        } init();
         function update(){
             var user = UserService.updateUser(uid,vm.user);
             if(user){

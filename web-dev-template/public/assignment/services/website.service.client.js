@@ -6,7 +6,7 @@
     function websiteService(){
         var websites = [];
 
-        (function (){
+        function init(){
             websites = [
                 { "_id": "123", "name": "Facebook", update: new Date(),    "developerId": "456", "description": "Lorem" },
                 { "_id": "234", "name": "Tweeter", update: new Date(),     "developerId": "456", "description": "Lorem" },
@@ -15,7 +15,7 @@
                 { "_id": "678", "name": "Checkers", update: new Date(),    "developerId": "123", "description": "Lorem" },
                 { "_id": "789", "name": "Chess", update: new Date(),       "developerId": "234", "description": "Lorem" }
             ];
-        })();
+        } init();
         var api = {
             "findWebsitesByUser":findWebsitesByUser,
             "findWebsiteById":findWebsiteById,

@@ -18,9 +18,10 @@
         vm.updateWidget =updateWidget;
         vm.deleteWidget = deleteWidget;
 
-        (function (){
+        function init(){
             vm.widget = WidgetService.findWidgetById(vm.params.widg);
-        })();
+            console.log(vm.widget)
+        }init();
 
         function updateWidget(){
             var bool = WidgetService.updateWidget(vm.params.widg,vm.widget);

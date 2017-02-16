@@ -13,10 +13,10 @@
         //event handlers
         vm.createWidget = createWidget;
 
-        (function (){
+        function init(){
             vm.widgets = WidgetService.findAllWidgets();
             vm.availableTypes = WidgetService.findAllAvailableTypes();
-        })();
+        }init();
 
 
         function createWidget(widgetType){

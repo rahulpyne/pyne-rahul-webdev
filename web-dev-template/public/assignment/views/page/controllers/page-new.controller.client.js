@@ -15,9 +15,9 @@
         //event Handlers
         vm.createPage = createPage;
 
-        (function(){
+        function init(){
             vm.pages = PageService.findPageByWebsiteId(vm.params.wid);
-        })();
+        } init();
 
         function createPage(page){
             if(page){

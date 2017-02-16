@@ -16,10 +16,10 @@
         //event handlers
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
-        (function (){
+        function init(){
             vm.pages = PageService.findPageByWebsiteId(vm.params.wid);
             vm.editPage = PageService.findPageById(vm.params.pid);
-        })();
+        } init();
 
         function updatePage(){
             var bool = PageService.updatePage(vm.params.pid,vm.editPage);

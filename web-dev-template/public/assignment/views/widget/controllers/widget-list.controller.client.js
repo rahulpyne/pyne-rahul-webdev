@@ -16,9 +16,10 @@
         //event handlers
         vm.doYouTrustUrl = doYouTrustUrl;
         vm.trustAsHtml = trustAsHtml;
-        (function(){
+        function init(){
             vm.widgets = WidgetService.findWidgetsByPageId(vm.params.pid);
-        })();
+            console.log(vm.widgets);
+        }init();
 
         function doYouTrustUrl(url) {
             var baseUrl = "https://www.youtube.com/embed/";

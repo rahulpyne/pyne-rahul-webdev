@@ -12,8 +12,8 @@
         // event handlers
         vm.addnew = addnew;
 
-        (function(){
-        })(); // act as the init function
+        function init(){
+        } init(); // act as the init function
 
         function addnew(user) {
             if (user) {

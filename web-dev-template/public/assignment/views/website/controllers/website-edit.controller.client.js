@@ -14,10 +14,10 @@
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
 
-        (function(){
+        function init(){
             vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
             vm.editWebsite = WebsiteService.findWebsiteById(vm.wid);
-        })();
+        }init();
 
         function deleteWebsite(){
             var bool = WebsiteService.deleteWebsite(vm.wid);

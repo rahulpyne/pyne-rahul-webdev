@@ -12,9 +12,9 @@
         // event handlers
         vm.createWebsite = createWebsite;
 
-        (function(){
+        function init(){
             vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-        })();
+        } init();
 
         function createWebsite(website){
             if(website){

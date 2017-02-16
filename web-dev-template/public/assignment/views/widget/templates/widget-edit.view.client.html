@@ -15,13 +15,27 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <div ng-switch = "model.widget.widgetType">
+        <div ng-switch-when = "HEADING">
+        <div ng-include="'views/widget/templates/widget-heading-edit.view.client.html'"></div>
+        </div>
+        <div ng-switch-when = "HTML">
+        <div ng-include="'views/widget/templates/widget-html-edit.view.client.html'"></div>
+        </div>
+        <div ng-switch-when = "IMAGE">
+        <div ng-include="'views/widget/templates/widget-image-edit.view.client.html'"></div>
+        </div>
+        <div ng-switch-when = "YOUTUBE">
+        <div ng-include="'views/widget/templates/widget-youtube-edit.view.client.html'"></div>
+        </div>
+    </div>
     <a class="btn btn-danger  btn-block"
        ng-click="model.deleteWidget()">Delete</a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
-            <a href="/user/{{model.params.uid}}">
+            <a href="#/user/{{model.params.uid}}">
                 <span class="glyphicon glyphicon-user"></span></a>
         </div>
     </div>
