@@ -17,28 +17,34 @@
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
         function init(){
-            vm.pages = PageService.findPageByWebsiteId(vm.params.wid);
-            vm.editPage = PageService.findPageById(vm.params.pid);
+            var promise = PageService.findPageByWebsiteId(vm.params.wid);
+            promise.success(function(pages){
+                vm.pages = pages;
+            });
+            var promise1 = PageService.findPageById(vm.params.pid);
+            promise1.success(function(page){
+                vm.editPage = page;
+            });
         } init();
 
         function updatePage(){
-            var bool = PageService.updatePage(vm.params.pid,vm.editPage);
-            if(bool){
+            var promise = PageService.updatePage(vm.params.pid,vm.editPage);
+            promise.success(function(page){
                 $location.url("/user/"+vm.params.uid+"/website/"+vm.params.wid+"/page")
-            }
-            else{
-                vm.error = "Encountered a problem, kindly try again."
-            }
+            })
+                .error(function(){
+                    vm.error = "Encountered a problem, kindly try again."
+                });
         }
 
         function deletePage(){
-            var bool = PageService.deletePage(vm.params.pid);
-            if(bool){
+            var promise = PageService.deletePage(vm.params.pid);
+            promise.success(function(){
                 $location.url("/user/"+vm.params.uid+"/website/"+vm.params.wid+"/page");
-            }
-            else{
-                vm.error = "Encountered a problem, kindly try again";
-            }
+            })
+                .error(function(){
+                    vm.error = "Encountered a problem, kindly try again";
+                });
         }
     }
 })();

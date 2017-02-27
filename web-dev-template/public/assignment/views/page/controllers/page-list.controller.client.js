@@ -13,7 +13,10 @@
         vm.params.wid = $routeParams.wid;
 
         function init(){
-            vm.pages = PageService.findPageByWebsiteId(vm.params.wid);
+            var promise = PageService.findPageByWebsiteId(vm.params.wid);
+            promise.success(function(pages){
+                vm.pages = pages;
+            });
         } init();
     }
 })();

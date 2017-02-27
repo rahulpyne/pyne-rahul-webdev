@@ -6,17 +6,7 @@
         .module("AppMaker")
         .factory("PageService",pageService);
 
-    function pageService(){
-        var pages = [];
-
-        function init(){
-            pages = [
-                { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-                { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-                { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-            ]
-        } init();
-
+    function pageService( $http){
         var api={
             "createPage":createPage,
             "findPageByWebsiteId":findPageByWebsiteId,
@@ -27,57 +17,23 @@
         return api;
 
         function createPage(wid,page){
-            var newpage = {};
-            newpage.websiteId = wid;
-            newpage.name = page.name;
-            newpage.description = page.description;
-            if(pages){
-                newpage._id = pages[pages.length - 1]._id + 1;
-            }
-            else{
-                newpage._id = 1;
-            }
-            pages.push(newpage);
+            return $http.post("/api/website/"+wid+"/page",page);
         }
 
         function findPageByWebsiteId(wid){
-            var webPages = [];
-            for(var p in pages){
-                if(pages[p].websiteId == wid){
-                    webPages.push(angular.copy(pages[p]));
-                }
-            }
-            return webPages;
+            return $http.get("/api/website/"+wid+"/page");
         }
 
         function findPageById(pid){
-            for(var p in pages){
-                if(pages[p]._id == pid){
-                    return angular.copy(pages[p]);
-                }
-            }
-            return null;
+            return $http.get("/api/page/"+pid);
         }
 
         function updatePage(pid,page){
-            for(var p in pages){
-                if(pages[p]._id == pid){
-                    pages[p].name = page.name;
-                    pages[p].description = page.description;
-                    return angular.copy(pages[p]);
-                }
-            }
-            return null;
+            return $http.put("/api/page/"+pid,page);
         }
 
         function deletePage(pid){
-            for(var p in pages){
-                if(pages[p]._id == pid){
-                    pages.splice(p,1);
-                    return true;
-                }
-            }
-            return false;
+            return $http.delete("/api/page/"+pid);
         }
     }
 })();

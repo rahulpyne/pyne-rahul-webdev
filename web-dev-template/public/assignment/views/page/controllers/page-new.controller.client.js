@@ -16,13 +16,18 @@
         vm.createPage = createPage;
 
         function init(){
-            vm.pages = PageService.findPageByWebsiteId(vm.params.wid);
+            var promise = PageService.findPageByWebsiteId(vm.params.wid);
+            promise.success(function(pages){
+                vm.pages = pages;
+            });
         } init();
 
         function createPage(page){
             if(page){
-                PageService.createPage(vm.params.wid,page);
-                $location.url("/user/"+vm.params.uid+"/website/"+vm.params.wid+"/page");
+                var promise = PageService.createPage(vm.params.wid,page);
+                promise.success(function(){
+                    $location.url("/user/"+vm.params.uid+"/website/"+vm.params.wid+"/page");
+                });
             }
             else{
                 vm.error = "Encountered a problem. Please enter details and try again."
