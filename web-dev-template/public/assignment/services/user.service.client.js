@@ -6,18 +6,7 @@
         .module("AppMaker") // injecting the appropriate app
         .factory("UserService",userService); // mapping the name to the appropriate function
 
-    function userService(){
-        var users = [];
-
-        function init() { // whenever UserService is called, the list of users is fetched.
-            users = [
-                {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
-                {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
-                {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
-                {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
-            ];
-        } init(); // acting as a constructor and initializing the required instance variables.
-        // since the instance variable is defined outside, immediate invocation of function does not reduce its scope within iffy.
+    function userService($http){
 
         var api = {
             "findUserByCredentials": findUserByCredentials, // maps the service api names to appropriate function names
@@ -29,71 +18,28 @@
         }
         return api; // whenever UserService is invoked, the map of apis is returned
 
-        function findUserByUsername(username){
-            for(var u in users){
-                if(users[u].username == username){
-                    return angular.copy(users[u]);
-                }
-                return null;
-            }
+        function findUserByUsername(username) {
+            return $http.get("/api/user?username="+username);
         }
 
         function deleteUser(uid){
-            for(var u in users){
-                if(users[u]._id == uid){
-                    users.splice(u,1);
-                    break;
-                }
-            }
+            return $http.delete("/api/user/:userId"+uid);
         }
 
-
-        function findUserById(uid){
-            for(var u in users){
-                if(users[u]._id == uid){
-                    return angular.copy(users[u]);
-                }
-            }
-            return null;
+        function findUserById(userId) {
+            return $http.get("/api/user/"+userId);
         }
 
-        function updateUser(uid, newUser){
-            for(var u in users) {
-                if (users[u]._id==uid) {
-                    users[u].firstName = newUser.firstName;
-                    users[u].lastName = newUser.lastName;
-                    users[u].email = newUser.email;
-                    return angular.copy(users[u]);
-                }
-            }
-            return null;
+        function updateUser(userId, newUser) {
+            return $http.put("/api/user/"+userId, newUser);
         }
 
         function createUser(user){
-            var newuser={};
-            newuser.username = user.username;
-            newuser.firstName = user.firstname;
-            newuser.lastName = user.lastname;
-            newuser.password = user.password;
-            newuser.email = user.email;
-
-            if(users){
-                newuser._id = users[users.length - 1]._id + 1;
-            }
-            else{
-                newuser._id = 1;
-            }
-            users.push(newuser);
-            return newuser;
+            return $http.post("/api/user/", user);
         }
 
-        function findUserByCredentials(username, password){
-            for( var u in users){
-                if(users[u].username == username && users[u].password == password){
-                    return angular.copy(users[u]);
-                }
-            }
-            return null;
+        function findUserByCredentials(username, password) {
+            return $http.get("/api/user?username="+username+"&password="+password);
         }
     }
 })();

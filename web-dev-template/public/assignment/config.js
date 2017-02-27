@@ -6,7 +6,11 @@
         .module("AppMaker")
         .config(configuration);
 
-    function configuration($routeProvider){// passing routeProvider, i.e. instance of ngRoute module.
+    function configuration($routeProvider,$httpProvider){// passing routeProvider, i.e. instance of ngRoute module.
+
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+        $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+
         $routeProvider // maps the urls to views using when, cannot render multiple views in the same page like stateProvider.
             .when("/",{
                 templateUrl: "views/user/templates/login.view.client.html",

@@ -13,13 +13,18 @@
         vm.createWebsite = createWebsite;
 
         function init(){
-            vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+            var promise = WebsiteService.findWebsitesByUser(vm.uid);
+            promise.success(function (websites) {
+                vm.websites = websites;
+            });
         } init();
 
         function createWebsite(website){
             if(website){
-                WebsiteService.createWebsite(vm.uid, website);
-                $location.url("/user/"+vm.uid+"/website");
+                var promise = WebsiteService.createWebsite(vm.uid, website);
+                promise.success(function(web){
+                    $location.url("/user/"+vm.uid+"/website");
+                });
             }
             else{
                 vm.error = "Encountered a problem, kindly try again."

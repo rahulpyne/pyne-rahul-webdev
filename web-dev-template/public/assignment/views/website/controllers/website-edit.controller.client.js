@@ -4,9 +4,9 @@
 (function () {
     angular
         .module("AppMaker")
-        .controller("WebsiteEditController",websiteEditController);
+        .controller("WebsiteEditController", websiteEditController);
 
-    function websiteEditController(WebsiteService,$routeParams,$location){
+    function websiteEditController(WebsiteService, $routeParams, $location) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -14,29 +14,39 @@
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
 
-        function init(){
-            vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-            vm.editWebsite = WebsiteService.findWebsiteById(vm.wid);
-        }init();
+        function init() {
+            var promise = WebsiteService.findWebsitesByUser(vm.uid);
+            promise.success(function (websites) {
+                vm.websites = websites;
+            });
+            var promise1 = WebsiteService.findWebsiteById(vm.wid);
+            promise1.success(function (website) {
+                vm.editWebsite = website;
+            });
+        }
 
-        function deleteWebsite(){
-            var bool = WebsiteService.deleteWebsite(vm.wid);
-            if(bool){
-                $location.url("/user/"+vm.uid+"/website");
-            }
-            else{
-                vm.error = "Encountered a problem. Could not delete";
-            }
+        init();
+
+        function deleteWebsite() {
+            var promise = WebsiteService.deleteWebsite(vm.wid);
+            promise.success(function () {
+                $location.url("/user/" + vm.uid + "/website");
+            })
+                .error(function () {
+                    vm.error = "Encountered a problem. Could not delete";
+                });
         }
 
         function updateWebsite(wid) {
-            var web = WebsiteService.updateWebsite(wid,vm.editWebsite);
-            if(web){
-                $location.url("/user/"+vm.uid+"/website");
-            }
-            else{
-                vm.error = "Encountered a problem. Kindly try again later.";
-            }
+            var promise = WebsiteService.updateWebsite(wid, vm.editWebsite);
+            promise.success(function (web) {
+                if (web) {
+                    $location.url("/user/" + vm.uid + "/website");
+                }
+            })
+                .error(function () {
+                    vm.error = "Encountered a problem. Kindly try again later.";
+                });
         }
 
 

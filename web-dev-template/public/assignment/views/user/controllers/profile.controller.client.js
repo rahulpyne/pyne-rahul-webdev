@@ -13,16 +13,23 @@
         //event handlers
         vm.update = update;
         function init() {
-            vm.user = UserService.findUserById(uid);
+            var promise = UserService.findUserById(uid);
+            promise.success(function(user){
+                if(user){
+                    vm.user = user;
+                }
+            });
         } init();
         function update(){
-            var user = UserService.updateUser(uid,vm.user);
-            if(user){
-                vm.message = "User details successfully updated";
-            }
-            else{
-                vm.error = "Unable to update user";
-            }
+            var promise = UserService.updateUser(uid,vm.user);
+            promise.success(function(user){
+                if(user){
+                    vm.message = "User details successfully updated";
+                }
+                else{
+                    vm.error = "Unable to update user";
+                }
+            });
         }
     }
 
