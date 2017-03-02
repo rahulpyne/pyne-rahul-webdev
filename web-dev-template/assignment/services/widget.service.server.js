@@ -34,7 +34,7 @@ module.exports = function (app) {
         }
     });
     var upload = multer({storage: storage});
-    app.post("/api/upload", upload.single('myFile'), uploadImage);
+    app.post("/api/upload", upload.single('myFile'), uploadImage); //  have to define this endpoint here because upload is getting defined here
 
     function uploadImage(req, res) {
         var pageId = null;
