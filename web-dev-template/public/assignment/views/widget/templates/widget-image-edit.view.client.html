@@ -1,5 +1,5 @@
 
-<form>
+<form action="/api/upload" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="text">Text</label>
         <input ng-model = "model.widget.text" type="text" class="form-control" id="text" placeholder="place any text">
@@ -13,14 +13,15 @@
         <input ng-model = "model.widget.width" type="text" class="form-control" id="width" placeholder="100%">
     </div>
     <div class="form-group">
-    <label for="Upload">Upload</label>
-    <input id = "Upload"
-           type="file"
-           class="form-control"
-           placeholder="size"/>
+        <label for="widgetUpload">Upload</label>
+        <input type="file" id="widgetUpload" name="myFile" class="form-control"/>
+        <input name="widgetId" value="{{model.params.widg}}" style="display: none"/>
+        <input name="pageId" value="{{model.params.pid}}" style="display: none"/>
+        <input name="userId" value="{{model.params.uid}}" style="display: none"/>
+        <input name="websiteId" value="{{model.params.wid}}" style="display: none"/>
+        <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
     </div>
 </form>
-<a class="btn btn-primary  btn-block upload">Upload Image</a>
 
 
 
