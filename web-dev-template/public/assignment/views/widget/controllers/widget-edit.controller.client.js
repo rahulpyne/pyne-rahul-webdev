@@ -19,27 +19,30 @@
         vm.deleteWidget = deleteWidget;
 
         function init(){
-            vm.widget = WidgetService.findWidgetById(vm.params.widg);
+            var promise = WidgetService.findWidgetById(vm.params.widg);
+            promise.success(function(widget){
+                vm.widget = widget;
+            });
         }init();
 
         function updateWidget(){
-            var bool = WidgetService.updateWidget(vm.params.widg,vm.widget);
-            if(bool){
+            var promise = WidgetService.updateWidget(vm.params.widg,vm.widget);
+            promise.success(function(widget){
                 $location.url("/user/"+vm.params.uid+"/website/"+vm.params.wid+"/page/"+vm.params.pid+"/widget")
-            }
-            else{
-                vm.error = "Encountered a problem. Kindly try again";
-            }
+            })
+                .error(function(){
+                    vm.error = "Encountered a problem. Kindly try again";
+                });
         }
 
         function deleteWidget(){
-            var bool = WidgetService.deleteWidget(vm.params.widg);
-            if(bool){
+            var promise = WidgetService.deleteWidget(vm.params.widg);
+            promise.success(function(){
                 $location.url("/user/"+vm.params.uid+"/website/"+vm.params.wid+"/page/"+vm.params.pid+"/widget")
-            }
-            else{
-                vm.error = "Encountered a problem. Kindly try again";
-            }
+            })
+                .error(function(){
+                    vm.error = "Encountered a problem. Kindly try again";
+                });
         }
     }
 })();

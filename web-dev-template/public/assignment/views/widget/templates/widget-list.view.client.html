@@ -17,6 +17,7 @@
 </nav>
 
 <div class="container-fluid">
+    <div class="widget-list" wbdv-sortable="">
     <div ng-repeat = "widget in model.widgets">
         <div ng-switch = "widget.widgetType">
             <div class="rp-toolbar">
@@ -38,6 +39,7 @@
                 <div ng-include = "'views/widget/templates/widget-youtube.view.client.html'"></div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 
