@@ -72,8 +72,8 @@ module.exports = function (app,widgetModel) {
 
     function reorderWidget(req,res){
         var pageId = req.params.pageId;
-        var start = parseInt(req.query.start);
-        var end = parseInt(req.query.end);
+        var start = parseInt(req.query.initial);
+        var end = parseInt(req.query.final);
         widgetModel
             .reorderWidget(pageId, start, end)
             .then(function (widget) {

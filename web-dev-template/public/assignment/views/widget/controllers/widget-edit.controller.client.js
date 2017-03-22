@@ -22,7 +22,6 @@
             var promise = WidgetService.findWidgetById(vm.params.widg);
             promise.success(function(widget){
                 vm.widget = widget;
-                console.log(widget);
             });
         }init();
 

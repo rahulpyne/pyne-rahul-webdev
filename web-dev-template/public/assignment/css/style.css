@@ -62,3 +62,6 @@ a.btn.btn-primary.upload{
     width: 100%;
     height: 100%;
 }
+.borderMargin{
+    margin: 15px;
+}
