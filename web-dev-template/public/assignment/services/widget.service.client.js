@@ -15,11 +15,11 @@
             "updateWidget":updateWidget,
             "deleteWidget":deleteWidget,
             "findAllAvailableTypes":findAllAvailableTypes,
-            "updatePosition": updatePosition
+            "updateWidgetOrder": updateWidgetOrder
         };
         return api;
 
-        function updatePosition(initial,final,pageId){
+        function updateWidgetOrder(initial,final,pageId){
             return $http.put("/page/"+pageId+"/widget?initial="+initial+"&final="+final);
         }
 

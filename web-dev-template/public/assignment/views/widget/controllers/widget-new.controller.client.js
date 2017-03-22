@@ -23,7 +23,7 @@
 
         function createWidget(widgetType){
             var widget= {// the page id could have been added here too, but the requirement was different, hence this.
-                "widgetType":widgetType
+                "type":widgetType
             };
             var promise = WidgetService.createWidget(vm.params.pid,widget);
             promise.success(function(newWidget){

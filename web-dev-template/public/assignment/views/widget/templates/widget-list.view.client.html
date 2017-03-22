@@ -19,7 +19,7 @@
 <div class="container-fluid">
     <div class="widget-list" wbdv-sortable="">
     <div ng-repeat = "widget in model.widgets">
-        <div ng-switch = "widget.widgetType">
+        <div ng-switch = "widget.type">
             <div class="rp-toolbar">
                 <a href = "#/user/{{model.params.uid}}/website/{{model.params.wid}}/page/{{model.params.pid}}/widget/{{widget._id}}">
                     <span class="glyphicon glyphicon-cog"></span>
@@ -32,10 +32,13 @@
             <div ng-switch-when = "HTML">
                 <div ng-include = "'views/widget/templates/widget-html.view.client.html'"></div>
             </div>
+            <div ng-switch-when="INPUT">
+                <ng-include src="'views/widget/templates/widget-text.view.client.html'"></ng-include>
+            </div>
             <div ng-switch-when = "IMAGE">
                 <div ng-include = "'views/widget/templates/widget-image.view.client.html'"></div>
             </div>
-            <div ng-switch-when="YOUTUBE">
+            <div ng-switch-when="YOUTUBE" class = "youtube-widget">
                 <div ng-include = "'views/widget/templates/widget-youtube.view.client.html'"></div>
             </div>
         </div>

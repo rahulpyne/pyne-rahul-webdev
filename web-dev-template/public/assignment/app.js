@@ -3,5 +3,5 @@
  */
 (function () {
   angular.
-      module("AppMaker",["ngRoute"]); // passing dependency of ngRoute to the angular app.
+      module("AppMaker",["ngRoute","textAngular"]); // passing dependency of ngRoute to the angular app.
 })();

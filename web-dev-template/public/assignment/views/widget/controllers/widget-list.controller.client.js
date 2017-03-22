@@ -33,12 +33,5 @@
         function trustAsHtml(text){
             return $sce.trustAsHtml(text); // --->  $sce.trustAs($sce.HTML,text)
         }
-
-        function updateIndexPosition(initial,final){
-            WidgetService
-                .updatePosition(initial,final,vm.params.pid)
-                .success(function (widgets) {
-                });
-        }
     }
 })();

@@ -1,12 +1,12 @@
 module.exports = function (app) {
-    /*app.get("/api/user", requestFromClient);
 
-    function requestFromClient(req, res) {
-        console.log("Got a ping from Client");
-        res.sendStatus(200);
-    }*/
-    require("./services/user.service.server")(app);
-    require("./services/website.service.server")(app);
-    require("./services/page.service.server")(app);
-    require("./services/widget.service.server")(app);
+    var userModel = require('./model/user/user.model.server');
+    var websiteModel = require('./model/website/website.model.server');
+    var pageModel = require('./model/page/page.model.server');
+    var widgetModel = require('./model/widget/widget.model.server');
+
+    require("./services/user.service.server")(app,userModel);
+    require("./services/website.service.server")(app,websiteModel);
+    require("./services/page.service.server")(app,pageModel);
+    require("./services/widget.service.server")(app,widgetModel);
 };

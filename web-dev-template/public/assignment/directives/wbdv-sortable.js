@@ -3,26 +3,36 @@
         .module('AppMaker')
         .directive('wbdvSortable', sortableDir);
 
-    function sortableDir($http) {
-        function linkFunc(scope, element, attributes) {
-            var startIndex = -1;
-            var endIndex = -1;
+    function sortableDir() {
+        function linkFunc(scope, element, attributes, sortController) {
             element.sortable({
-                axis: 'y',
-                start: function(event,ui){
-                    startIndex=ui.item.index();
+                start: function (event, ui) {
+                    ui.item.startPos = ui.item.index();
                 },
-                stop : function (event,ui) {
-                    endIndex = ui.item.index();
-                    if (startIndex != endIndex) {
-                        scope.model.updateIndexPosition(startIndex, endIndex);
-                    }
-                }
+                update: function (event, ui) {
+                    var startIndex = ui.item.startPos;
+                    var endIndex = ui.item.index();
+                    sortController.sortWidgets(startIndex, endIndex);
+                },
+                axis: 'y',
+                cursor: 'move'
             });
         }
-        return {
-            link: linkFunc
-        };
 
+        return { link: linkFunc, controller: sortController }
+    }
+
+    function sortController(WidgetService, $routeParams) {
+        var vm = this;
+        vm.sortWidgets = sortWidgets;
+
+        function sortWidgets(startIndex, endIndex) {
+            var pageId = $routeParams.pid;
+            WidgetService.updateWidgetOrder(startIndex, endIndex,pageId)
+                .success(function (response) {
+                })
+                .error(function () {
+                });
+        }
     }
 })();
