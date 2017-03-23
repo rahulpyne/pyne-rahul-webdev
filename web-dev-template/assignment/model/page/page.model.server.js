@@ -1,6 +1,7 @@
 /**
  * Created by Rahulpyne on 21-Mar-17.
  */
+var model = null;
 var mongoose = require('mongoose');
 var q = require('q');
 var pageSchema = require('./page.schema.server');
@@ -12,10 +13,10 @@ pageModel.findAllPagesForWebsite = findAllPagesForWebsite;
 pageModel.findPageById = findPageById;
 pageModel.updatePage = updatePage;
 pageModel.deletePage = deletePage;
+pageModel.setModel = setModel;
 
 module.exports = pageModel;
 
-var websiteModel = require('../website/website.model.server');
 
 function createPage(websiteId, page) {
     var deffered = q.defer();
@@ -24,7 +25,7 @@ function createPage(websiteId, page) {
         if(err)
             deffered.reject(err);
         else {
-            websiteModel.findWebsiteById(page._website)
+            model.websiteModel.findWebsiteById(page._website)
                 .then(function (website) {
                     website.pages.push(page._id);
                     website.save(function (err) {
@@ -83,4 +84,8 @@ function deletePage(pageId) {
         }
     });
     return deffered.promise;
+}
+
+function setModel(_model) {
+    model = _model;
 }

@@ -23,9 +23,12 @@ module.exports = function (app,widgetModel) {
     var availableTypes = ["HEADING","HTML","IMAGE","YOUTUBE","INPUT"];
 
     var multer = require('multer');
+    var fs = require("fs");
+    var uploadsDirectory = __dirname+"/../../public/uploads";
+    var publicDirectory =__dirname+"/../../public";
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, __dirname + "/../../public/uploads")
+            cb(null,uploadsDirectory)
         },
         filename: function (req, file, cb) {
             var extArray = file.mimetype.split("/");
@@ -36,38 +39,63 @@ module.exports = function (app,widgetModel) {
     var upload = multer({storage: storage});
     app.post("/api/upload", upload.single('myFile'), uploadImage); //  have to define this endpoint here because upload is getting defined here
 
+    function deleteUploadedImage(imageUrl) {
+        // Local helper function
+        if(imageUrl && imageUrl.search('http') == -1){// checking whether the directory is local or not.
+            fs.unlink(publicDirectory+imageUrl, function (err) {
+                if(err){
+                    return;
+                }
+            });
+        }
+    }
+
     function uploadImage(req, res) {
-        var pageId = null;
         var widgetId = req.body.widgetId;
         var width = req.body.width;
         var userId = req.body.userId;
         var websiteId = req.body.websiteId;
         var myFile = req.file;
-        var destination = myFile.destination;
-        var widgets = [];
-        widgetModel
-            .findWidgetById(widgetId)
-            .then(
-                function (widget) {
-                    // Set the url for the widget
-                    widget.url = "/uploads/" + filename;
+        var pageId = req.body.pageId;
 
-                    // Update existing widget and redirect
-                    widgetModel
-                        .updateWidget(widgetId, widget)
-                        .then(
-                            function (updatedWidget) {
-                                res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
-                            },
-                            function (failedUpdate) {
-                                res.sendStatus(400).send(failedUpdate);
-                            }
-                        );
-                },
-                function (error) {
-                    res.sendStatus(400).send(error);
-                }
-            );
+        if(req.file){
+            var myFile = req.file;
+            widgetModel
+                .findWidgetById(widgetId)
+                .then(
+                    function (widget) {
+                        // Set the url and width for the widget
+                        if(widget.url){
+                            // An image URL already exists
+                            // User wants to replace an image, delete the old one
+                            deleteUploadedImage(widget.url);
+                        }
+                        widget.width = width;
+                        widget.url = "/uploads/" + myFile.filename;
+                        pageId = widget._page;
+
+                        // Update existing widget and redirect
+                        widgetModel
+                            .updateWidget(widgetId, widget)
+                            .then(
+                                function (updatedWidget) {
+                                    res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+                                },
+                                function (failedUpdate) {
+                                    res.sendStatus(400).send(failedUpdate);
+                                }
+                            );
+                    },
+                    function (error) {
+                        res.sendStatus(400).send(error);
+                    }
+                );
+        }
+        else{
+            // File was not uploaded
+            // Return the user to widget list page
+            res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget");
+        }
     }
 
     function reorderWidget(req,res){

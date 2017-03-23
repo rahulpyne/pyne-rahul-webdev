@@ -1,6 +1,7 @@
 /**
  * Created by Rahulpyne on 21-Mar-17.
  */
+var model = null;
 var mongoose = require('mongoose');
 var q = require('q');
 var widgetSchema = require('./widget.schema.server');
@@ -13,16 +14,17 @@ widgetModel.findWidgetById = findWidgetById;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
 widgetModel.reorderWidget = reorderWidget;
+widgetModel.setModel = setModel;
 
 module.exports = widgetModel;
 
-var pageModel = require('../page/page.model.server');
+
 
 function createWidget(pageId, widget) {
     var deffered = q.defer();
     widget._page = pageId;
     widgetModel.findOne({_page: pageId})
-        .sort('-position')
+        .sort({position:1})
         .exec(function (err, lastWidget) {
             if(lastWidget)
                 widget.position = lastWidget.position+1;
@@ -32,7 +34,7 @@ function createWidget(pageId, widget) {
                 if(err)
                     deffered.reject(err);
                 else {
-                    pageModel.findPageById(widget._page)
+                    model.pageModel.findPageById(widget._page)
                         .then(function (page) {
                             page.widgets.push(widget._id);
                             page.save(function (err) {
@@ -51,7 +53,7 @@ function createWidget(pageId, widget) {
 function findAllWidgetsForPage(pageId) {
     var deffered = q.defer();
     widgetModel.find({_page: pageId})
-        .sort('position')
+        .sort({position:1})
         .exec(function (err, widgets) {
             if(err)
                 deffered.reject(err);
@@ -108,35 +110,33 @@ function deleteWidget(widgetId) {
     });
     return deffered.promise;
 }
-
 function reorderWidget(pageId, start, end) {
-    var deffered = q.defer();
-    if(start < end) {
-        widgetModel.update({_page: pageId, position: {$gt: start, $lte: end}}, {$inc: {position: -1}}, {multi: true}, function (err, success) {
-            if(err)
-                deffered.reject(err);
-            else {
-                widgetModel.findOneAndUpdate({_page: pageId, position: start}, {$set: {position: end}}, function (err, widget) {
-                    if(err)
-                        deffered.reject(err);
-                    else
-                        deffered.resolve(widget);
-                });
-            }
+    return widgetModel.find({_page: pageId}, function (err, widgets) {
+            widgets.forEach(function (widget) {
+                if (start < end) {
+                    if (widget.position == start) {
+                        widget.position = end;
+                        widget.save();
+                    }
+                    else if (widget.position > start && widget.position <= end) {
+                        widget.position = widget.position - 1;
+                        widget.save();
+                    }
+                } else {
+                    if (widget.position == start) {
+                        widget.position = end;
+                        widget.save();
+                    }
+
+                    else if (widget.position < start && widget.position >= end) {
+                        widget.position = widget.position + 1;
+                        widget.save();
+                    }
+                }
+            });
         });
-    } else {
-        widgetModel.update({_page: pageId, position: {$gte: end, $lt: start}}, {$inc: {position: 1}}, {multi: true}, function (err, success) {
-            if(err)
-                deffered.reject(err);
-            else {
-                widgetModel.findOneAndUpdate({_page: pageId, position: start}, {$set: {position: end}}, function (err, widget) {
-                    if(err)
-                        deffered.reject(err);
-                    else
-                        deffered.resolve(widget);
-                });
-            }
-        });
-    }
-    return deffered.promise;
+}
+
+function setModel(_model) {
+    model = _model;
 }

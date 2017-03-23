@@ -1,6 +1,7 @@
 /**
  * Created by Rahulpyne on 21-Mar-17.
  */
+var model = null;
 var mongoose = require('mongoose');
 var q = require('q');
 var userSchema = require('./user.schema.server');
@@ -13,6 +14,7 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
+userModel.setModel = setModel;
 
 module.exports = userModel;
 
@@ -82,4 +84,8 @@ function deleteUser(userId) {
         }
     });
     return deffered.promise;
+}
+
+function setModel(_model) {
+    model = _model;
 }

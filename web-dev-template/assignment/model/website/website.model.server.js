@@ -1,7 +1,7 @@
 /**
  * Created by Rahulpyne on 21-Mar-17.
  */
-
+var model = null;
 var mongoose = require('mongoose');
 var q = require('q');
 var websiteSchema = require('./website.schema.server');
@@ -13,10 +13,11 @@ websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
 websiteModel.findWebsiteById = findWebsiteById;
 websiteModel.updateWebsite = updateWebsite;
 websiteModel.deleteWebsite = deleteWebsite;
+websiteModel.setModel = setModel;
 
 module.exports = websiteModel;
 
-var userModel = require('../user/user.model.server');
+
 
 function createWebsiteForUser(userId, website) {
     var deffered = q.defer();
@@ -25,7 +26,7 @@ function createWebsiteForUser(userId, website) {
         if(err)
             deffered.reject(err);
         else {
-            userModel.findUserById(website._user)
+            model.userModel.findUserById(website._user)
                 .then(function (user) {
                     user.websites.push(website._id);
                     user.save(function (err) {
@@ -84,4 +85,8 @@ function deleteWebsite(websiteId) {
         }
     });
     return deffered.promise;
+}
+
+function setModel(_model) {
+    model = _model;
 }
