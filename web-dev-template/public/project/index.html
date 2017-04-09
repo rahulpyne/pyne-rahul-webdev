@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MCApp">
 <head>
     <meta charset="UTF-8">
-    <title>Project Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Big Bucket of Blockbusters</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="css/dashboard.css" rel="stylesheet"/>
+    <link href="css/loading-bar.css" rel="stylesheet"/>
+    <link href="css/ng-rating.css" rel="stylesheet"/>
+    <link href="css/simple-sidebar.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+    <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="js/loading-bar.js"></script>
+    <script src="js/ng-infinite-scroll.min.js"></script>
+    <script src="js/ng-rating.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="services/movie.service.client.js"></script>
+    <script src="services/review.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="views/admin/admin.controller.client.js"></script>
+    <script src="views/details/details.controller.client.js"></script>
+    <script src="views/header/header.controller.client.js"></script>
+    <script src="views/home/home.controller.client.js"></script>
+    <script src="views/home/home-popular.controller.client.js"></script>
+    <script src="views/home/home-result.controller.client.js"></script>
+    <script src="views/main/main.controller.client.js"></script>
+    <script src="views/user/login/login.controller.client.js"></script>
+    <script src="views/user/profile/edit-profile.controller.client.js"></script>
+    <script src="views/user/profile/followers.controller.client.js"></script>
+    <script src="views/user/profile/following.controller.client.js"></script>
+    <script src="views/user/profile/likes.controller.client.js"></script>
+    <script src="views/user/profile/profile.controller.client.js"></script>
+    <script src="views/user/profile/reviews.controller.client.js"></script>
+    <script src="views/user/profile/sidebar.controller.client.js"></script>
+    <script src="views/user/register/register.controller.client.js"></script>
 </head>
-<body>
-    <h1>Project Home Page</h1>
+
+<body ng-controller="MainController as mainControllerModel">
+
+    <div ng-include="'views/header/header.view.client.html'"></div>
+
+    <div class="container-fluid">
+        <div ui-view></div>
+    </div>
+
 </body>
+
 </html>
