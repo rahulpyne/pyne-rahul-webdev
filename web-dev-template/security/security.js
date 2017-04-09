@@ -5,28 +5,20 @@ module.exports = function (database, passport) {
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
     var bcrypt = require('bcrypt-nodejs');
 
-    var mcGoogleConfig = {
-        clientID     : "443873519131-nq2i7b8r03udu607lf0q04aj03g1bvre.apps.googleusercontent.com",
-        clientSecret : "hbpKV2NMcxqlMcOkPtyWGxc2",
-        callbackURL  : "http://localhost:3000/mc/auth/google/callback"
-    };
 
-    /*var mcGoogleConfig = {
+
+    var mcGoogleConfig = {
         clientID     : process.env.MC_GOOGLE_CLIENT_ID,
         clientSecret : process.env.MC_GOOGLE_CLIENT_SECRET,
         callbackURL  : process.env.MC_GOOGLE_CALLBACK_URL
-    };*/
+    };
+
 
     var mcFacebookConfig = {
-        clientID: "1750281721931580",
-        clientSecret: "5dd1bc8591b8f7da5cf77251641f11f4",
-        callbackURL: "http://localhost:3000/mc/auth/facebook/callback"
-    };
-    /*var mcFacebookConfig = {
         clientID: process.env.MC_FACEBOOK_CLIENT_ID,
         clientSecret: process.env.MC_FACEBOOK_CLIENT_SECRET,
         callbackURL: process.env.MC_FACEBOOK_CALLBACK_URL
-    };*/
+    };
 
     var projectModel = database.mcmodels().userModel;
 

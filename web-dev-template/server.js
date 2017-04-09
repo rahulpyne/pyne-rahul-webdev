@@ -9,7 +9,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 
-var secret = "This is a secret for local deployment";
+
 if(process.env.WEB_CONCURRENCY ) {
     secret = process.env.SESSION_SECRET;
 }
