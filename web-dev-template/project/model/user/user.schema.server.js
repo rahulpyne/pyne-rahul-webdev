@@ -14,7 +14,7 @@ module.exports = function (mongoose) {
         movieLikes: [String],
         followers: [{type: mongoose.Schema.Types.ObjectId, ref: 'MCUser'}],
         following: [{type: mongoose.Schema.Types.ObjectId, ref: 'MCUser'}],
-        role: {type: String, enum: ['user', 'admin'], default: 'user'},
+        role: {type: String, enum: ['user', 'admin'], default: 'admin'},
         dateCreated: {type: Date, default: Date.now()}
     }, {collection: 'mc.user'});
     return UserSchema;
