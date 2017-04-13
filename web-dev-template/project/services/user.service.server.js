@@ -5,11 +5,23 @@ module.exports = function (app, models, security) {
 
     var bcrypt = security.getBCrypt();
     var multer = require('multer');
+    var fs = require("fs");
     var passport = security.getPassport();
 
     var auth = authorized;
-    var upload = multer({dest: __dirname + '/../../public/uploads'});
-
+    var uploadsDirectory = __dirname+"/../../public/uploads";
+    /*var upload = multer({dest: __dirname + '/../../public/uploads'});*/
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null,uploadsDirectory)
+        },
+        filename: function (req, file, cb) {
+            var extArray = file.mimetype.split("/");
+            var extension = extArray[extArray.length - 1];
+            cb(null, 'prof_image_' + Date.now() + '.' + extension)
+        }
+    });
+    var upload = multer({storage: storage});
     // Login and logout requests
     app.post('/mc/login', passport.authenticate('mc'), login);
     app.post('/mc/logout', logout);

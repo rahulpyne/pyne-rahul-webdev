@@ -19,15 +19,14 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
-
                         isAlreadyFollowing();
-
                         UserService
                             .findUserById(vm.navUserId)
                             .then(function (response) {
                                 var user = response.data;
                                 if (user) {
                                     vm.navUser = user;
+                                    console.log(vm.user);
                                 }
                             });
                     }
