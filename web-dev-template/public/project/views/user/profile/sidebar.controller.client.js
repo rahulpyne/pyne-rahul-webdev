@@ -26,7 +26,6 @@
                                 var user = response.data;
                                 if (user) {
                                     vm.navUser = user;
-                                    console.log(vm.user);
                                 }
                             });
                     }

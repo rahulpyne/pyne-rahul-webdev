@@ -10,7 +10,6 @@ module.exports = function (app, models, security) {
 
     var auth = authorized;
     var uploadsDirectory = __dirname+"/../../public/uploads";
-    /*var upload = multer({dest: __dirname + '/../../public/uploads'});*/
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null,uploadsDirectory)
