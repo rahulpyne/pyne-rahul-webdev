@@ -113,8 +113,8 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-xl {
   color: white;
-  background-color: #fed136;
-  border-color: #fed136;
+  background-color: #31708f;
+  border-color: #080808;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
@@ -128,8 +128,7 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl.active,
 .open .dropdown-toggle.btn-xl {
   color: white;
-  background-color: #fec503;
-  border-color: #f6bf01;
+  background-color: #014988;
 }
 .btn-xl:active,
 .btn-xl.active,
@@ -533,6 +532,7 @@ section#contact {
   background-image: url('../img/map-image.png');
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 0.9;
 }
 section#contact .section-heading {
   color: white;
@@ -602,7 +602,8 @@ footer ul.quicklinks {
   text-transform: none;
 }
 ul.social-buttons {
-  margin-bottom: 0;
+  margin: 1px;
+  padding:10px 0px;
 }
 ul.social-buttons li a {
   display: block;
@@ -1027,4 +1028,55 @@ body {
 {
   transition: 1s;
   transform: rotateY(180deg);
+}
+#map{
+  margin: 1.6em 0 3em 0;
+  line-height: 0;
+  padding: 8px;
+  border: 2px solid #E9EEEE;
+  border-radius: 8px;
+}
+#map-canvas {
+  height: 300px;
+  margin: 0px;
+  padding: 15px;
+}
+.pad{
+  padding: 20px;
+}
+.address p{
+  color:white;
+  font-size: 22px;
+}
+.address p i {
+  display: inline-block;
+  padding: 15px;
+  font-size: 32px;
+  color: #080808;
+  background: rgb(245, 245, 245);
+  margin: 30px 15px 30px 15px;
+  width: 65px;
+  border-radius: 4px;
+  border: 3px solid #080808;
+  text-align: center;
+}
+.contactbook {
+  margin: 40px 0px;
+}
+
+.resume{
+  color: black;
+  margin: 1px;
+  padding: 10px 0px;
+  display: block;
+  font-size: 20px;
+}
+
+.resume i{
+  color:black;
+  font-size: 30px;
+  margin:10px;
+}
+.copy{
+  padding: 10px 0px;
 }
